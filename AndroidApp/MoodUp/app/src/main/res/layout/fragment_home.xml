@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="homeViewModel"
+            type="com.example.moodup.ui.home.HomeViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.example.moodup.ui.home.HomeFragment">
+
+        <!-- device disconnected -->
+        <TextView
+            android:id="@+id/text_home_disconnected"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="No devices connected.\n Connect a device:\n"
+            android:textAlignment="center"
+            android:textSize="25sp"
+            app:layout_constraintBottom_toTopOf="@id/device_code_disconnected"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/device_code_disconnected"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:hint="device code"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_home_disconnected">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:text="@={homeViewModel.userDeviceCode}" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <ImageButton
+            android:id="@+id/send_code_button_disconnected"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:onClick="@{()->homeViewModel.onClickAddButton()}"
+            app:layout_constraintBottom_toBottomOf="@id/device_code_disconnected"
+            app:layout_constraintEnd_toEndOf="@id/device_code_disconnected"
+            app:layout_constraintTop_toTopOf="@id/device_code_disconnected"
+            app:srcCompat="@drawable/ic_arrow_forward_black_24" />
+
+        <!-- device connected -->
+        <TextView
+            android:id="@+id/text_home_connected"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/bg_box"
+            android:gravity="center"
+            android:text='@{"Your device: " + homeViewModel.userDeviceCode}'
+            android:textAlignment="center"
+            android:textColor="@color/timber_wolf"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@id/device_code_disconnected"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_home_subtitle_connected"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="8dp"
+            android:text="Current Room Status"
+            android:textAlignment="center"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/current_room_colour_connected"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_home_connected" />
+
+        <TextView
+            android:id="@+id/current_room_colour_connected"
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="24dp"
+            android:background="@drawable/bg_displayed_data"
+            android:gravity="center_vertical"
+            android:text="  Current Room Colour"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toTopOf="@id/room_temperature_connected"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_home_subtitle_connected" />
+
+
+        <TextView
+            android:id="@+id/room_temperature_connected"
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="24dp"
+            android:background="@drawable/bg_displayed_data"
+            android:gravity="center_vertical"
+            android:text="  Temperature"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toTopOf="@id/room_humidity_connected"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/current_room_colour_connected" />
+
+        <TextView
+            android:id="@+id/room_temperature_value_connected"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:gravity="center_vertical"
+            android:text='@{homeViewModel.roomTemperature + "℃  "}'
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="@id/room_temperature_connected"
+            app:layout_constraintEnd_toEndOf="@id/room_temperature_connected"
+            app:layout_constraintTop_toTopOf="@id/room_temperature_connected" />
+
+        <TextView
+            android:id="@+id/room_humidity_connected"
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="24dp"
+            android:background="@drawable/bg_displayed_data"
+            android:gravity="center_vertical"
+            android:text="  Humidity"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toTopOf="@id/room_light_connected"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/room_temperature_connected" />
+
+        <TextView
+            android:id="@+id/room_humidity_value_connected"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:text='@{homeViewModel.roomHumidity + "%  "}'
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="@id/room_humidity_connected"
+            app:layout_constraintEnd_toEndOf="@id/room_humidity_connected"
+            app:layout_constraintTop_toTopOf="@id/room_humidity_connected" />
+
+        <TextView
+            android:id="@+id/room_light_connected"
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="24dp"
+            android:background="@drawable/bg_displayed_data"
+            android:gravity="center_vertical"
+            android:text="  Lighting"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toTopOf="@id/room_colour_connected"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/room_humidity_connected" />
+
+        <TextView
+            android:id="@+id/room_light_value_connected"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:text='@{homeViewModel.roomLight + "lx  "}'
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="@id/room_light_connected"
+            app:layout_constraintEnd_toEndOf="@id/room_light_connected"
+            app:layout_constraintTop_toTopOf="@id/room_light_connected" />
+
+        <TextView
+            android:id="@+id/room_colour_connected"
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="24dp"
+            android:background="@drawable/bg_displayed_data"
+            android:gravity="center_vertical"
+            android:text="  Pick a colour"
+            android:textSize="24sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/room_light_connected" />
+
+        <ImageView
+            android:id="@+id/colour_button_connected"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="8dp"
+            android:onClick="@{()->homeViewModel.onClickColourPickerButton()}"
+            app:layout_constraintBottom_toBottomOf="@id/room_colour_connected"
+            app:layout_constraintEnd_toEndOf="@id/room_colour_connected"
+            app:layout_constraintTop_toTopOf="@id/room_colour_connected"
+            app:srcCompat="@drawable/img_colour_picker" />
+
+        <Button
+            android:id="@+id/disconnect_device_button_connected"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:onClick="@{()->homeViewModel.onClickDisconnectButton()}"
+            android:text="Disconnect"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+        <!-- permanent -->
+
+        <Button
+            android:id="@+id/show_tips"
+            android:layout_width="132dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:onClick="@{()->homeViewModel.onClickTipsButton()}"
+            android:text="Mood Tips"
+            android:visibility="@{homeViewModel.isTipsButtonClicked()? View.GONE:View.VISIBLE}"
+            app:layout_constraintBottom_toTopOf="@id/disconnect_device_button_connected"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+        <ImageView
+            android:id="@+id/improve_mood"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{()->homeViewModel.tipsButtonCancel()}"
+            android:visibility="@{homeViewModel.isTipsButtonClicked()? View.VISIBLE:View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/img_mood_instructions" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

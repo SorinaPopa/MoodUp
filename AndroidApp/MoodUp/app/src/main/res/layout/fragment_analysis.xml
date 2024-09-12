@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="analysisViewModel"
+            type="com.example.moodup.ui.profile.analysis.AnalysisViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/frameLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.profile.analysis.AnalysisFragment">
+
+        <TextView
+            android:id="@+id/title_analysis"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/bg_box"
+            android:gravity="center"
+            android:text="My Analysis"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/back_arrow_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:onClick="@{()->analysisViewModel.onClickArrowButton()}"
+            app:layout_constraintBottom_toBottomOf="@id/title_analysis"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="@id/title_analysis"
+            app:srcCompat="@drawable/ic_arrow_back_back_36" />
+
+        <ImageView
+            android:id="@+id/show_analysis"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:backgroundTint="@color/hunter_green"
+            android:onClick="@{()->analysisViewModel.onShowButton()}"
+            app:srcCompat="@drawable/ic_refresh_black_36"
+            app:layout_constraintBottom_toBottomOf="@id/title_analysis"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/title_analysis" />
+
+        <TextView
+            android:id="@+id/current_week"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="48dp"
+            android:text="Week: 21.06-27.06"
+            android:textSize="22sp"
+            app:layout_constraintBottom_toTopOf="@id/barChart"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="@id/title_analysis"
+            app:layout_constraintVertical_bias="0.7" />
+
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/barChart"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="150dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="100dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title_analysis" />
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
